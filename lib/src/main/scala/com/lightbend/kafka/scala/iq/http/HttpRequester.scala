@@ -12,7 +12,7 @@ import akka.http.scaladsl.model.{ HttpResponse, HttpRequest, ResponseEntity }
 import akka.http.scaladsl.model.StatusCodes._
 import akka.http.scaladsl.unmarshalling.{ Unmarshal, Unmarshaller }
 
-import akka.stream.ActorMaterializer
+import akka.stream.Materializer
 
 import scala.concurrent.{ Future, ExecutionContext}
 
@@ -24,11 +24,11 @@ import java.io.IOException
  * Provides a generic API over HTTP to query from a host and a store. The result is
  * returned as a Future.
  */ 
-class HttpRequester(val actorSystem: ActorSystem, val mat: ActorMaterializer,
+class HttpRequester(val actorSystem: ActorSystem, val mat: Materializer,
                     val executionContext: ExecutionContext) extends LazyLogging {
 
   private implicit val as: ActorSystem = actorSystem
-  private implicit val mt: ActorMaterializer = mat
+  private implicit val mt: Materializer = mat
   private implicit val ec: ExecutionContext = executionContext
 
   private def apiRequest(path: String, host: HostStoreInfo): Future[HttpResponse] =

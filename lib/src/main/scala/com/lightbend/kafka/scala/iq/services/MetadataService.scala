@@ -25,7 +25,7 @@ import org.apache.kafka.common.serialization.Serializer
 import org.apache.kafka.streams.KafkaStreams
 import org.apache.kafka.streams.state.StreamsMetadata
 
-import scala.collection.JavaConverters._
+import scala.jdk.CollectionConverters._
 import scala.util.{Failure, Success, Try}
 import com.typesafe.scalalogging.LazyLogging
 

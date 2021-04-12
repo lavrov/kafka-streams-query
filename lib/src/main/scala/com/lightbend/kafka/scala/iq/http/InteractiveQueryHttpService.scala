@@ -15,7 +15,7 @@ import akka.http.scaladsl.model.StatusCodes._
 import akka.http.scaladsl.server.ExceptionHandler
 import de.heikoseeberger.akkahttpcirce.FailFastCirceSupport
 
-import akka.stream.ActorMaterializer
+import akka.stream.Materializer
 import akka.stream.scaladsl.Flow
 
 import org.apache.kafka.streams.state.HostInfo
@@ -31,12 +31,12 @@ import com.typesafe.scalalogging.LazyLogging
  */ 
 abstract class InteractiveQueryHttpService(hostInfo: HostInfo,
     actorSystem: ActorSystem,
-    actorMaterializer: ActorMaterializer,
+    materializer: Materializer,
     ec: ExecutionContext)
     extends Directives with FailFastCirceSupport with LazyLogging {
 
   implicit val _actorSystem = actorSystem
-  implicit val _actorMaterializer = actorMaterializer
+  implicit val _materializer = materializer
   implicit val _ec = ec
 
   val myExceptionHandler = ExceptionHandler {
@@ -54,7 +54,7 @@ abstract class InteractiveQueryHttpService(hostInfo: HostInfo,
 
   // start the http server
   def start(): Unit = {
-    bindingFuture = Http().bindAndHandle(routes, hostInfo.host, hostInfo.port)
+    bindingFuture = Http().newServerAt(hostInfo.host, hostInfo.port).bindFlow(routes)
 
     bindingFuture.onComplete {
       case Success(serverBinding) =>

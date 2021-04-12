@@ -8,7 +8,7 @@ package services
 import org.apache.kafka.streams.KafkaStreams
 import org.apache.kafka.streams.state.{QueryableStoreType, QueryableStoreTypes, ReadOnlyKeyValueStore, ReadOnlyWindowStore}
 
-import scala.collection.JavaConverters._
+import scala.jdk.CollectionConverters._
 import scala.concurrent.{ExecutionContext, Future}
 import scala.concurrent.duration._
 import com.typesafe.scalalogging.LazyLogging

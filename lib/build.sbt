@@ -4,15 +4,15 @@ name := "kafka-streams-query"
 
 organization := "com.lightbend"
 
-version := "0.1.1"
+version := "0.2.0-SNAPSHOT"
 
 scalaVersion := Versions.scalaVersion
 
 crossScalaVersions := Versions.crossScalaVersions
 
-scalacOptions := Seq("-Xexperimental", "-unchecked", "-deprecation", "-Ywarn-unused-import")
+scalacOptions := Seq("-unchecked", "-deprecation")
 
-parallelExecution in Test := false
+Test / parallelExecution := false
 
 libraryDependencies ++= Seq(
   kafkaStreams excludeAll(ExclusionRule("org.slf4j", "slf4j-log4j12"), ExclusionRule("org.apache.zookeeper", "zookeeper")),
@@ -54,4 +54,4 @@ publishTo := {
 
 publishMavenStyle := true
 
-publishArtifact in Test := false
+Test / publishArtifact := false
